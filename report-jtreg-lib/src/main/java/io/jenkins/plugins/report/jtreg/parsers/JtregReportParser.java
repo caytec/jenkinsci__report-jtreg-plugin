@@ -67,6 +67,8 @@ public class  JtregReportParser implements ReportParser {
         List<Test> testsList = new ArrayList<>();
         try (ArchiveInputStream in = streamPath(path)) {
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+            inputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            inputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
             ArchiveEntry entry;
             while ((entry = in.getNextEntry()) != null) {
                 String entryName = entry.getName();

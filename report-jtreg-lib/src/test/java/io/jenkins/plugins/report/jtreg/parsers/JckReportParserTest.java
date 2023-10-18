@@ -40,6 +40,13 @@ public class JckReportParserTest {
 
     private Document createDocument(String xmlFileName) {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        String FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+        try {
+            documentBuilderFactory.setFeature(FEATURE, true);
+        } catch (ParserConfigurationException e) {
+            throw new IllegalStateException("ParserConfigurationException was thrown. The feature '"
+                    + FEATURE + "' is not supported by your XML processor.", e);
+        }
         documentBuilderFactory.setNamespaceAware(true);
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

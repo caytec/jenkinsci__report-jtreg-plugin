@@ -264,7 +264,7 @@ public class JobsRecognition {
             long fileLength = fileHandler.length() - 1;
             StringBuilder sb = new StringBuilder();
 
-            for (long filePointer = fileLength; filePointer != -1; filePointer--) {
+            for (long filePointer = fileLength; filePointer > -1; filePointer--) {
                 fileHandler.seek(filePointer);
                 int readByte = fileHandler.readByte();
 

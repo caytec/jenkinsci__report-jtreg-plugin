@@ -4,6 +4,8 @@ import io.jenkins.plugins.report.jtreg.formatters.Formatter;
 import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +19,13 @@ public class VirtualJobsResults {
         try {
             File buildXml = new File(build.getAbsolutePath() + "/build.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            String FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+            try {
+                factory.setFeature(FEATURE, true);
+            } catch (ParserConfigurationException e) {
+                throw new IllegalStateException("ParserConfigurationException was thrown. The feature '"
+                        + FEATURE + "' is not supported by your XML processor.", e);
+            }
             DocumentBuilder builder = factory.newDocumentBuilder();
             doc = builder.parse(buildXml);
             doc.getDocumentElement().normalize();

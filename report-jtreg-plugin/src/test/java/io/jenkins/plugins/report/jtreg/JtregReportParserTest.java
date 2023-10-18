@@ -35,9 +35,7 @@ public class JtregReportParserTest {
         Assert.assertTrue(outputs2.get(1).getValue().contains("head"));
         Assert.assertTrue(outputs2.get(1).getValue().contains("Attempt"));
 
-        File tmpJMainDir = File.createTempFile("jtregJenkinsJckPlugin","test.json");
-        tmpJMainDir.delete();
-        tmpJMainDir.mkdir();
+        File tmpJMainDir = Files.createTempDirectory("jtregJenkinsJckPlugin" + "test.json").toFile();
         tmpJMainDir.deleteOnExit();
         File tmpDir2 = new File(tmpJMainDir, "jobs/builds/5");
         tmpDir2.mkdirs();
